@@ -6,6 +6,8 @@ package rs.ac.fink.racunarska_oprema.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import rs.ac.fink.racunarska_oprema.dao.ProizvodDao;
 import rs.ac.fink.racunarska_oprema.dao.ResourceManager;
 import rs.ac.fink.racunarska_oprema.data.Proizvod;
@@ -36,18 +38,30 @@ public class ProizvodService {
         }
     }
     
-    public Proizvod findProizvodByVrsta(String vrsta) throws OpremaException {
-        Connection con = null;
-        try {
-            con = ResourceManager.getConnection();
-
-            return ProizvodDao.getInstance().findByVrsta(vrsta, con);
-            
-            
-        } catch (SQLException ex) {
-            throw new OpremaException("Failed to find product with vrsta " + vrsta, ex);
-        } finally {
-            ResourceManager.closeConnection(con);
-        }
+    public List<Proizvod> findProizvodByVrsta(String productType) throws OpremaException {
+    Connection con = null;
+    try {
+        con = ResourceManager.getConnection();
+        return ProizvodDao.getInstance().findByVrsta(productType, con);
+    } catch (SQLException ex) {
+        throw new OpremaException("Failed to find products with type " + productType, ex);
+    } finally {
+        ResourceManager.closeConnection(con);
     }
+    }
+    
+    public List<Proizvod> findProizvodAll() throws OpremaException {
+    Connection con = null;
+    try {
+        con = ResourceManager.getConnection();
+        return ProizvodDao.getInstance().findAll(con);
+        
+    } catch (SQLException ex) {
+        throw new OpremaException("There is no products in the shop ");
+    } finally {
+        ResourceManager.closeConnection(con);
+    }
+    }
+
 }
+ 

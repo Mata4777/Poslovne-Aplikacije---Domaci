@@ -4,6 +4,7 @@
  */
 package rs.ac.fink.racunarska_oprema.rest;
 
+import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -26,9 +27,15 @@ public class ProizvodRest {
     }
     
     @GET
-    @Path("/vrsta/{name}")
+    @Path("/vrsta/{vrsta}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Proizvod getProizvodByVrsta(@PathParam("name") String name) throws OpremaException {
-        return proizvodService.findProizvodByVrsta(name);
+    public List<Proizvod> getProizvodByVrsta(@PathParam("vrsta") String vrsta) throws OpremaException {
+        return proizvodService.findProizvodByVrsta(vrsta);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Proizvod> getProizvodAll() throws OpremaException {
+        return proizvodService.findProizvodAll();
     }
 }

@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import rs.ac.fink.racunarska_oprema.data.Proizvod;
 
 public class ProizvodDao {
@@ -39,21 +41,40 @@ public class ProizvodDao {
         return proizvod;
     }
     
-    public Proizvod findByVrsta(String vrsta, Connection con) throws SQLException {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Proizvod proizvod = null;
-        try {
-            ps = con.prepareStatement("SELECT * FROM proizvod where vrsta_opreme=?");
-            ps.setString(1, vrsta);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                proizvod = new Proizvod(rs.getInt("proizvod_id"), rs.getString("naziv"), rs.getInt("cena"), vrsta, rs.getInt("stanje_na_lageru"));
-            }
-        } finally {
-            ResourceManager.closeResources(rs, ps);
+    public List<Proizvod> findByVrsta(String vrsta, Connection con) throws SQLException {
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    List<Proizvod> proizvodi = new ArrayList<>();
+    try {
+        ps = con.prepareStatement("SELECT * FROM proizvod WHERE vrsta_opreme=?");
+        ps.setString(1, vrsta);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Proizvod proizvod = new Proizvod(rs.getInt("proizvod_id"), rs.getString("naziv"), rs.getInt("cena"), vrsta, rs.getInt("stanje_na_lageru"));
+            proizvodi.add(proizvod);
         }
-        return proizvod;
+    } finally {
+        ResourceManager.closeResources(rs, ps);
+    }
+    return proizvodi;
+    }
+    
+    public List<Proizvod> findAll(Connection con) throws SQLException {
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    List<Proizvod> proizvodi = new ArrayList<>();
+    try {
+        ps = con.prepareStatement("SELECT * FROM proizvod");
+        
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Proizvod proizvod = new Proizvod(rs.getInt("proizvod_id"), rs.getString("naziv"), rs.getInt("cena"), rs.getString("vrsta_opreme"), rs.getInt("stanje_na_lageru"));
+            proizvodi.add(proizvod);
+        }
+    } finally {
+        ResourceManager.closeResources(rs, ps);
+    }
+    return proizvodi;
     }
     
     public void insert(Proizvod proizvod, Connection con) throws SQLException {
