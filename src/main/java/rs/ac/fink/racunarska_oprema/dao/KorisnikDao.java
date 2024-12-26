@@ -21,6 +21,23 @@ public class KorisnikDao {
         return instance;
     }
     
+     public Korisnik findById(int id, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Korisnik korisnik = null;
+        try {
+            ps = con.prepareStatement("SELECT * FROM korisnik where korisnik_id=?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                korisnik = new Korisnik(id ,rs.getString("ime_i_prezime"), rs.getString("username"), rs.getString("e_mail"), rs.getString("datum_rodjenja"), rs.getInt("stanje_racuna"),rs.getInt("kolicina_potrosenog_novca"));
+            }
+        } finally {
+            ResourceManager.closeResources(rs, ps);
+        }
+        return korisnik;
+    }
+    
      public Korisnik find(String username, Connection con) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -58,5 +75,30 @@ public class KorisnikDao {
         }
     }
     
+    public void updateStanje(Korisnik korisnik, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        
+        try {
+            ps = con.prepareStatement("UPDATE korisnik SET stanje_racuna=? WHERE korisnik_id=?");
+            ps.setInt(1, korisnik.getStanje_racuna());
+            ps.setInt(2, korisnik.getKorisnik_id());
+            ps.executeUpdate();
+        } finally {
+            ResourceManager.closeResources(null, ps);
+        }
+    }
+    
+    public void updateKolicinaPotrosenog(Korisnik korisnik, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        
+        try {
+            ps = con.prepareStatement("UPDATE korisnik SET kolicina_potrosenog_novca=? WHERE korisnik_id=?");
+            ps.setInt(1, korisnik.getKolicina_potrosenog_novca());
+            ps.setInt(2, korisnik.getKorisnik_id());
+            ps.executeUpdate();
+        } finally {
+            ResourceManager.closeResources(null, ps);
+        }
+    }
     
 }

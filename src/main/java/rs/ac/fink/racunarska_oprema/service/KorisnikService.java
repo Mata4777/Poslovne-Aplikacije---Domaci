@@ -51,4 +51,21 @@ public class KorisnikService {
             ResourceManager.closeConnection(con);
         }
     }
+    
+    public void updateStanje(Korisnik korisnik) throws OpremaException {
+        Connection con = null;
+        try {
+            con = ResourceManager.getConnection();
+            con.setAutoCommit(false);
+
+            KorisnikDao.getInstance().updateStanje(korisnik, con);
+
+            con.commit();
+        } catch (SQLException ex) {
+            ResourceManager.rollbackTransactions(con);
+            throw new OpremaException("Failed to update product " + korisnik, ex);
+        } finally {
+            ResourceManager.closeConnection(con);
+        }
+    }
 }

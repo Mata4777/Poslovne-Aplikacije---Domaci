@@ -23,6 +23,22 @@ public class ProizvodDao {
         return instance;
     }
     
+    public Proizvod findById(int id, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Proizvod proizvod = null;
+        try {
+            ps = con.prepareStatement("SELECT * FROM proizvod where proizvod_id=?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                proizvod = new Proizvod(id, rs.getString("naziv"), rs.getInt("cena"), rs.getString("vrsta_opreme"), rs.getInt("stanje_na_lageru"));
+            }
+        } finally {
+            ResourceManager.closeResources(rs, ps);
+        }
+        return proizvod;
+    }
     
     public Proizvod findByName(String naziv, Connection con) throws SQLException {
         PreparedStatement ps = null;
@@ -91,6 +107,33 @@ public class ProizvodDao {
 
         } finally {
             ResourceManager.closeResources(rs, ps);
+        }
+    }
+    
+    public void update(Proizvod proizvod, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        
+        try {
+            ps = con.prepareStatement("UPDATE proizvod SET stanje_na_lageru=? WHERE proizvod_id=?");
+            ps.setInt(1, proizvod.getStanje_na_lageru());
+            ps.setInt(2, proizvod.getProizvod_id());
+            ps.executeUpdate();
+        } finally {
+            ResourceManager.closeResources(null, ps);
+        }
+    }
+    
+    public void delete(Proizvod proizvod, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        try {
+
+
+            //delete product
+            ps = con.prepareStatement("DELETE FROM proizvod WHERE proizvod_id=?");
+            ps.setInt(1, proizvod.getProizvod_id());
+            ps.executeUpdate();
+        } finally {
+            ResourceManager.closeResources(null, ps);
         }
     }
 }

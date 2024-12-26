@@ -29,8 +29,16 @@ public class KorisnikRest {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addCustomer(Korisnik korisnik) throws OpremaException{
+    public Response addKorisnik(Korisnik korisnik) throws OpremaException{
             korisnikService.addNewKorisnik(korisnik);
+            return Response.ok().build();
+    }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateKorisnikStanje(Korisnik korisnik) throws OpremaException{
+            korisnikService.updateStanje(korisnik);
             return Response.ok().build();
     }
 }
