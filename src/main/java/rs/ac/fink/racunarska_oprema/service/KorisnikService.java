@@ -38,7 +38,7 @@ public class KorisnikService {
         try {
             con = ResourceManager.getConnection();
 
-            //more than one SQL statement to execute, needs to be a single transaction
+            
             con.setAutoCommit(false);
 
             KorisnikDao.getInstance().insert(korisnik, con);
@@ -64,6 +64,20 @@ public class KorisnikService {
         } catch (SQLException ex) {
             ResourceManager.rollbackTransactions(con);
             throw new OpremaException("Failed to update product " + korisnik, ex);
+        } finally {
+            ResourceManager.closeConnection(con);
+        }
+    }
+    
+    
+    public boolean login(String username, String password) throws OpremaException {
+        Connection con = null;
+
+        try {
+            con = ResourceManager.getConnection();
+            return KorisnikDao.getInstance().Login(username, password, con);
+        } catch (SQLException ex) {
+         throw new OpremaException("Failed to validate login for user " + username, ex);
         } finally {
             ResourceManager.closeConnection(con);
         }

@@ -38,7 +38,7 @@ public class KupovinaDao {
             if (rs.next()) {
                 Korisnik korisnik = KorisnikDao.getInstance().findById(rs.getInt("korisnik_id"), con);
                 Proizvod proizvod = ProizvodDao.getInstance().findById(rs.getInt("proizvod_id"), con);
-                kupovina = new Kupovina(korisnik, proizvod);
+                kupovina = new Kupovina(id, korisnik, proizvod);
             }
         } finally {
             ResourceManager.closeResources(rs, ps);

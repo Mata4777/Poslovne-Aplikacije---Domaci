@@ -15,11 +15,12 @@ public class Korisnik implements Serializable{
     private String datum_rodjenja;
     private int stanje_racuna;
     private int kolicina_potrosenog_novca;
+    private String password;
 
     public Korisnik() {
     }
 
-    public Korisnik(int korisnik_id, String ime_i_prezime, String username, String e_mail, String datum_rodjenja, int stanje_racuna, int kolicina_potrosenog_novca) {
+    public Korisnik(int korisnik_id, String ime_i_prezime, String username, String e_mail, String datum_rodjenja, int stanje_racuna, int kolicina_potrosenog_novca, String password) {
         this.korisnik_id = korisnik_id;
         this.ime_i_prezime = ime_i_prezime;
         this.username = username;
@@ -27,15 +28,17 @@ public class Korisnik implements Serializable{
         this.datum_rodjenja = datum_rodjenja;
         this.stanje_racuna = stanje_racuna;
         this.kolicina_potrosenog_novca = kolicina_potrosenog_novca;
+        this.password = password;
     }
     
-    public Korisnik(String ime_i_prezime, String username, String e_mail, String datum_rodjenja, int stanje_racuna, int kolicina_potrosenog_novca) {
+    public Korisnik(String ime_i_prezime, String username, String e_mail, String datum_rodjenja, int stanje_racuna, int kolicina_potrosenog_novca, String password) {
         this.ime_i_prezime = ime_i_prezime;
         this.username = username;
         this.e_mail = e_mail;
         this.datum_rodjenja = datum_rodjenja;
         this.stanje_racuna = stanje_racuna;
         this.kolicina_potrosenog_novca = kolicina_potrosenog_novca;
+        this.password = password;
     }
 
     public int getKorisnik_id() {
@@ -94,10 +97,20 @@ public class Korisnik implements Serializable{
         this.kolicina_potrosenog_novca = kolicina_potrosenog_novca;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
-        return "Korisnik{" + "korisnik_id=" + korisnik_id + ", ime_i_prezime=" + ime_i_prezime + ", username=" + username + ", e_mail=" + e_mail + ", datum_rodjenja=" + datum_rodjenja + ", stanje_racuna=" + stanje_racuna + ", kolicina_potrosenog_novca=" + kolicina_potrosenog_novca + '}';
+        return "Korisnik{" + "korisnik_id=" + korisnik_id + ", ime_i_prezime=" + ime_i_prezime + ", username=" + username + ", e_mail=" + e_mail + ", datum_rodjenja=" + datum_rodjenja + ", stanje_racuna=" + stanje_racuna + ", kolicina_potrosenog_novca=" + kolicina_potrosenog_novca + ", password=" + password + '}';
     }
+
+    
     
     
     

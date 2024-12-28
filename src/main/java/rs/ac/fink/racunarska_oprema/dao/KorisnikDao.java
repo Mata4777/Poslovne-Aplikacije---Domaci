@@ -30,7 +30,7 @@ public class KorisnikDao {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
-                korisnik = new Korisnik(id ,rs.getString("ime_i_prezime"), rs.getString("username"), rs.getString("e_mail"), rs.getString("datum_rodjenja"), rs.getInt("stanje_racuna"),rs.getInt("kolicina_potrosenog_novca"));
+                korisnik = new Korisnik(id ,rs.getString("ime_i_prezime"), rs.getString("username"), rs.getString("e_mail"), rs.getString("datum_rodjenja"), rs.getInt("stanje_racuna"),rs.getInt("kolicina_potrosenog_novca"), rs.getString("password"));
             }
         } finally {
             ResourceManager.closeResources(rs, ps);
@@ -47,7 +47,7 @@ public class KorisnikDao {
             ps.setString(1, username);
             rs = ps.executeQuery();
             if (rs.next()) {
-                korisnik = new Korisnik(rs.getInt("korisnik_id") ,rs.getString("ime_i_prezime"), rs.getString("username"), rs.getString("e_mail"), rs.getString("datum_rodjenja"), rs.getInt("stanje_racuna"),rs.getInt("kolicina_potrosenog_novca"));
+                korisnik = new Korisnik(rs.getInt("korisnik_id") ,rs.getString("ime_i_prezime"), rs.getString("username"), rs.getString("e_mail"), rs.getString("datum_rodjenja"), rs.getInt("stanje_racuna"),rs.getInt("kolicina_potrosenog_novca"),rs.getString("password"));
                 
             }
         } finally {
@@ -56,18 +56,19 @@ public class KorisnikDao {
         return korisnik;
     }
     
-    public void insert(Korisnik customer, Connection con) throws SQLException {
+    public void insert(Korisnik korisnik, Connection con) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
 
-            ps = con.prepareStatement("INSERT INTO korisnik(ime_i_prezime, username, e_mail, datum_rodjenja, stanje_racuna, kolicina_potrosenog_novca) VALUES(?,?,?,?,?,?)");
-            ps.setString(2, customer.getUsername());
-            ps.setString(1, customer.getIme_i_prezime());
-            ps.setString(3, customer.getE_mail());
-            ps.setString(4, customer.getDatum_rodjenja());
-            ps.setInt(5, customer.getStanje_racuna());
-            ps.setInt(6, customer.getKolicina_potrosenog_novca());
+            ps = con.prepareStatement("INSERT INTO korisnik(ime_i_prezime, username, e_mail, datum_rodjenja, stanje_racuna, kolicina_potrosenog_novca, password) VALUES(?,?,?,?,?,?,?)");
+            ps.setString(2, korisnik.getUsername());
+            ps.setString(1, korisnik.getIme_i_prezime());
+            ps.setString(3, korisnik.getE_mail());
+            ps.setString(4, korisnik.getDatum_rodjenja());
+            ps.setInt(5, korisnik.getStanje_racuna());
+            ps.setInt(6, korisnik.getKolicina_potrosenog_novca());
+            ps.setString(7, korisnik.getPassword());
             ps.executeUpdate();
 
         } finally {
@@ -100,5 +101,26 @@ public class KorisnikDao {
             ResourceManager.closeResources(null, ps);
         }
     }
+    
+    public boolean Login(String username, String password, Connection con) throws SQLException {
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        ps = con.prepareStatement("SELECT password FROM korisnik WHERE username = ?");
+        ps.setString(1, username);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            String originalPassword = rs.getString("password");
+            return originalPassword.equals(password);
+        }
+    } finally {
+        ResourceManager.closeResources(rs, ps);
+    }
+    return false;
+    }
+    
+    
     
 }

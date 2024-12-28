@@ -69,7 +69,7 @@ public class KupovinaService {
             ProizvodDao.getInstance().update(proizvod, con);
             
             
-            //track of purchase in database
+            
             Kupovina kupovina = new Kupovina(korisnik, proizvod);
             KupovinaDao.getInstance().insert(kupovina, con);
 
@@ -77,8 +77,7 @@ public class KupovinaService {
             
         } catch (SQLException ex) {
             ResourceManager.rollbackTransactions(con);
-            int novoPotroseno = korisnik.getKolicina_potrosenog_novca() + proizvod.getCena();
-            throw new OpremaException("Failed to add new kupovina. Korisnik id is " + korisnik.getKolicina_potrosenog_novca() + " and novoPotroseno is " + novoPotroseno);
+            throw new OpremaException("Failed to add new kupovina. Korisnik id is " + korisnik + "\n" + proizvod, ex);
         } finally {
             ResourceManager.closeConnection(con);
         }
