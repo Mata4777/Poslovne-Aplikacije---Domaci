@@ -2,17 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package rs.ac.fink.racunarska_oprema.data;
+package rs.ac.fink.evidencija_robe.data;
 
 
 
-public class Login {
+
+public class Kredencijali {
     private String username;
     private String password;
 
-    public Login() {}
+    public Kredencijali() {}
 
-    public Login(String username, String password) {
+    public Kredencijali(String username, String password) {
         this.username = username;
         this.password = password;
     }

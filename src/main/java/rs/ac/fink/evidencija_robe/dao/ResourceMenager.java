@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package rs.ac.fink.racunarska_oprema.dao;
+package rs.ac.fink.evidencija_robe.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import rs.ac.fink.racunarska_oprema.exception.OpremaException;
+import rs.ac.fink.evidencija_robe.exception.RobaException;
 
-public class ResourceManager {
+public class ResourceMenager {
 
     static {
         try {
@@ -22,7 +22,7 @@ public class ResourceManager {
     }
 
     public static Connection getConnection() throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/mydb?user=root&password=");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/evidencija_robe?user=root&password=");
         return con;
     }
 
@@ -35,22 +35,22 @@ public class ResourceManager {
         }
     }
 
-    public static void closeConnection(Connection con) throws OpremaException {
+    public static void closeConnection(Connection con) throws RobaException {
         if (con != null) {
             try {
                 con.close();
             } catch (SQLException ex) {
-                throw new OpremaException("Failed to close database connection.", ex);
+                throw new RobaException("Failed to close database connection.", ex);
             }
         }
     }
 
-    public static void rollbackTransactions(Connection con) throws OpremaException {
+    public static void rollbackTransactions(Connection con) throws RobaException {
         if (con != null) {
             try {
                 con.rollback();
             } catch (SQLException ex) {
-                throw new OpremaException("Failed to rollback database transactions.", ex);
+                throw new RobaException("Failed to rollback database transactions.", ex);
             }
         }
     }

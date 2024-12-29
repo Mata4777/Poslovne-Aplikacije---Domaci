@@ -1,0 +1,315 @@
+{
+	"info": {
+		"_postman_id": "f8df8578-610a-48a3-a2b0-94271228faac",
+		"name": "Racunarska_oprema",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39840373"
+	},
+	"item": [
+		{
+			"name": "Korisnik",
+			"item": [
+				{
+					"name": "getKorisnikByUsername",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/korisnik/mata",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"korisnik",
+								"mata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addKorisnik",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"datum_rodjenja\": \"1981-10-03\",\r\n    \"e_mail\": \"ibrahimovic@gmail.com\",\r\n    \"ime_i_prezime\": \"Zlatan Ibrahimovic\",\r\n    \"kolicina_potrosenog_novca\": 0,\r\n    \"password\": \"ibralav\",\r\n    \"stanje_racuna\": 30000,\r\n    \"username\": \"ibra\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/korisnik",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"korisnik"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putKorisnikStanje",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"datum_rodjenja\": \"2001-05-19\",\r\n    \"e_mail\": \"matazdravkovic@gmail.com\",\r\n    \"ime_i_prezime\": \"Mateja Zdavkovic\",\r\n    \"kolicina_potrosenog_novca\": 0,\r\n    \"korisnik_id\": 1,\r\n    \"stanje_racuna\": 20000,\r\n    \"username\": \"mata\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/korisnik",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"korisnik"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loginKorisnik",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"mata\",\r\n    \"password\": \"mata123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/korisnik/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"korisnik",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Proizvod",
+			"item": [
+				{
+					"name": "findProizvodByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/proizvod/naziv/Bloody Mis",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"proizvod",
+								"naziv",
+								"Bloody Mis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findProizvodByVrsta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/proizvod/vrsta/periferija",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"proizvod",
+								"vrsta",
+								"periferija"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProizvodAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/proizvod",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"proizvod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFiltriraniProizvodi",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"donja_granica_obima_cene\": 100,\r\n    \"gornja_granica_obima_cene\": 5000,\r\n    \"vrsta_opreme\": \"periferija\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/proizvod/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"proizvod",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kupovina",
+			"item": [
+				{
+					"name": "postKupovina",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"korisnik\": {\r\n        \"datum_rodjenja\": \"1981-10-03\",\r\n        \"e_mail\": \"ibrahimovic@gmail.com\",\r\n        \"ime_i_prezime\": \"Zlatan Ibrahimovic\",\r\n        \"kolicina_potrosenog_novca\": 0,\r\n        \"korisnik_id\": 5,\r\n        \"password\": \"ibralav\",\r\n        \"stanje_racuna\": 30000,\r\n        \"username\": \"ibra\"\r\n    },\r\n    \"proizvod\": {\r\n        \"cena\": 4999,\r\n        \"naziv\": \"Bloody Mis\",\r\n        \"proizvod_id\": 2,\r\n        \"stanje_na_lageru\": 10,\r\n        \"vrsta_opreme\": \"periferija\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/kupovina",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"kupovina"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getKupovina",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/kupovina/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"kupovina",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PodesavanjePretrage",
+			"item": [
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Racunarska_oprema/rest/filter/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Racunarska_oprema",
+								"rest",
+								"filter",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
